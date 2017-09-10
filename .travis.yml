@@ -1,0 +1,20 @@
+language: python
+sudo: false # build in a container, which is a lot faster! http://docs.travis-ci.com/user/migrating-from-legacy/
+cache: pip
+python:
+    - 3.2
+    - 3.3
+    - 3.4
+
+install:
+    - pip install reedsolo
+    - pip install 'coverage<4'
+    - pip install coveralls
+
+script:
+    - if [[ $TRAVIS_PYTHON_VERSION != pypy* ]]; then python setup.py build_ext --inplace ; fi
+    - nosetests -vv --with-coverage
+    - pytest
+
+after_success:
+    coveralls
