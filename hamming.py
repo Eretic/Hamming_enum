@@ -1,6 +1,8 @@
+import doctest
 import itertools
 import operator
 import reedsolo
+import sys
 
 
 def hamming_distance(i1, i2):
@@ -83,4 +85,7 @@ def solve():
 
 
 if __name__ == '__main__':
-    solve()
+    if sys.argv[1] == 'test':
+        doctest.testmod()
+    else:
+        solve()
