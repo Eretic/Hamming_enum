@@ -12,7 +12,7 @@ install:
     - pip install coveralls
 
 script:
-    - py.test
+    - python -m pydoc -v hamming.py
 
 after_success:
     coveralls
