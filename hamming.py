@@ -26,9 +26,9 @@ def hamming_min_distance(l):
     return min(hamming_distance(e1, e2) for e1, e2 in itertools.permutations(l, 2))
 
 
-def codes(count=16, c_bytes=4):
-    r = reedsolo.RSCodec(c_bytes)
-    c = [''.join((format(x, '08b') for x in r.encode(chr(i))[1:])) for i in range(count)]
+def codes(count=16, c_bytes=4, c_exp=8):
+    r = reedsolo.RSCodec(c_bytes, c_exp=c_exp)
+    c = [''.join((format(x, '0%db' % c_exp) for x in r.encode(bytearray(chr(i), encoding='latin1'))[1:])) for i in range(count)]
     return c
 
 
@@ -55,7 +55,7 @@ def print_enum(c):
     print('};')
 
 
-def solve():
+def solve(c_bytes=4, c_exp=8):
     """
     >>> solve()
     Get codes with min Hamming distance: 10
@@ -77,15 +77,36 @@ def solve():
         CODE_14 = 0x779B9F7A,
         CODE_15 = 0x78ADE73A,
     };
+    >>> solve(8, 4)
+    Get codes with min Hamming distance: 11
+    enum {
+        CODE_00 = 0x00000000,
+        CODE_01 = 0x148172C1,
+        CODE_02 = 0x2832E4B2,
+        CODE_03 = 0x3CB39673,
+        CODE_04 = 0x4364F854,
+        CODE_05 = 0x57E58A95,
+        CODE_06 = 0x6B561CE6,
+        CODE_07 = 0x7FD76E27,
+        CODE_08 = 0x86C8D3A8,
+        CODE_09 = 0x9249A169,
+        CODE_10 = 0xAEFA371A,
+        CODE_11 = 0xBA7B45DB,
+        CODE_12 = 0xC5AC2BFC,
+        CODE_13 = 0xD12D593D,
+        CODE_14 = 0xED9ECF4E,
+        CODE_15 = 0xF91FBD8F,
+    };
     """
-    c = codes()
+    c = codes(c_bytes=c_bytes, c_exp=c_exp)
     print('Get codes with min Hamming distance:', hamming_min_distance(c))
     int_codes = [bitstring_to_int(x) for x in c]
     print_enum(int_codes)
 
 
 if __name__ == '__main__':
-    if sys.argv[1] == 'test':
-        doctest.testmod()
+    if len(sys.argv) > 1 and sys.argv[1] == 'test':
+        fail, _ = doctest.testmod()
+        exit(fail)
     else:
         solve()

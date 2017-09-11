@@ -7,7 +7,7 @@ python:
     - 3.4
 
 install:
-    - pip install reedsolo
+    - pip install git+https://github.com/lrq3000/reedsolomon.git
     - pip install 'coverage<4'
     - pip install coveralls
 
