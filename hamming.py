@@ -143,8 +143,7 @@ def alternative_solve():
 if __name__ == '__main__':
     if len(sys.argv) > 1 and sys.argv[1] == 'test':
         fail, _ = doctest.testmod()
-        if fail:
-            exit(fail)
-
-    solve(8, 4)
-    alternative_solve()
+        exit(fail)
+    else:
+        solve(8, 4)
+        alternative_solve()
