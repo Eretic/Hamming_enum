@@ -10,11 +10,10 @@ install:
     - pip install git+https://github.com/lrq3000/reedsolomon.git
     - pip install codecov
     - pip install 'coverage<4'
-    - pip install coveralls
 
 script:
     - coverage run hamming.py test
+    - coverage run hamming.py
 
 after_success:
-    - coveralls
     - codecov
