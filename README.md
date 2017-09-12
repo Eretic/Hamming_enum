@@ -2,6 +2,7 @@
 Generate codes for enum and calculates its minimal Hamming distance
 
 [![Build Status](https://travis-ci.org/Eretic/Hamming_enum.svg?branch=master)](https://travis-ci.org/Eretic/Hamming_enum) [![Coverage Status](https://coveralls.io/repos/github/Eretic/Hamming_enum/badge.svg?branch=master)](https://coveralls.io/github/Eretic/Hamming_enum?branch=master)
+[![codecov](https://codecov.io/gh/Eretic/Hamming_enum/branch/master/graph/badge.svg)](https://codecov.io/gh/Eretic/Hamming_enum)
 
 ##### Minimal Hamming distance 14
 ```c
