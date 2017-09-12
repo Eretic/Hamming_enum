@@ -3,24 +3,38 @@ Generate codes for enum and calculates its minimal Hamming distance
 
 [![Build Status](https://travis-ci.org/Eretic/Hamming_enum.svg?branch=master)](https://travis-ci.org/Eretic/Hamming_enum) [![Coverage Status](https://coveralls.io/repos/github/Eretic/Hamming_enum/badge.svg?branch=master)](https://coveralls.io/github/Eretic/Hamming_enum?branch=master)
 
-Minimal Hamming distance 11:
+##### Minimal Hamming distance 14
 ```c
 enum {
-        CODE_00 = 0x00000000,
-        CODE_01 = 0x148172C1,
-        CODE_02 = 0x2832E4B2,
-        CODE_03 = 0x3CB39673,
-        CODE_04 = 0x4364F854,
-        CODE_05 = 0x57E58A95,
-        CODE_06 = 0x6B561CE6,
-        CODE_07 = 0x7FD76E27,
-        CODE_08 = 0x86C8D3A8,
-        CODE_09 = 0x9249A169,
-        CODE_10 = 0xAEFA371A,
-        CODE_11 = 0xBA7B45DB,
-        CODE_12 = 0xC5AC2BFC,
-        CODE_13 = 0xD12D593D,
-        CODE_14 = 0xED9ECF4E,
-        CODE_15 = 0xF91FBD8F,
- };
- ```
+    CODE_00 = 0x00000000,
+    CODE_01 = 0x1746B8B9,
+    CODE_02 = 0x2B9E45A4,
+    CODE_03 = 0x3CD8FD1D,
+    CODE_04 = 0x44751A27,
+    CODE_05 = 0x5333A29E,
+    CODE_06 = 0x6FEB5F83,
+    CODE_07 = 0x78ADE73A,
+    CODE_08 = 0x88EA344E,
+    CODE_09 = 0x9FAC8CF7,
+    CODE_10 = 0xA37471EA,
+    CODE_11 = 0xB432C953,
+    CODE_12 = 0xCC9F2E69,
+    CODE_13 = 0xDBD996D0,
+    CODE_14 = 0xE7016BCD,
+    CODE_15 = 0xF047D374,
+};
+```
+
+##### Minimal Hamming distance 16:
+```c
+enum {
+    CODE_00 = 0x00000000,
+    CODE_01 = 0x3CD8FD1D,
+    CODE_02 = 0x5A19EAA7,
+    CODE_03 = 0x66C117BA,
+    CODE_04 = 0x9B4FAC52,
+    CODE_05 = 0xA797514F,
+    CODE_06 = 0xC15646F5,
+    CODE_07 = 0xFD8EBBE8,
+};
+```

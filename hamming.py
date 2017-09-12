@@ -26,9 +26,34 @@ def hamming_min_distance(l):
     return min(hamming_distance(e1, e2) for e1, e2 in itertools.permutations(l, 2))
 
 
-def codes(count=16, c_bytes=4, c_exp=8):
+def code_generator(count=None, c_bytes=4, c_exp=8):
+    i = 0
     r = reedsolo.RSCodec(c_bytes, c_exp=c_exp)
-    c = [''.join((format(x, '0%db' % c_exp) for x in r.encode(bytearray(chr(i), encoding='latin1'))[1:])) for i in range(count)]
+    while i < 2 ** c_exp and (codes is None or i < count):
+        yield ''.join((format(x, '0%db' % c_exp) for x in r.encode(bytearray(chr(i), encoding='latin1'))[1:]))
+        i += 1
+
+
+def codes(count=16, c_bytes=4, c_exp=8):
+    return [i for i in code_generator(count, c_bytes, c_exp)]
+
+
+def find_codes_by_distance(min_hamming_distance=14):
+    g = code_generator(count=256)
+    c = [g.__next__()]
+    for el in g:
+        if hamming_min_distance(c + [el]) >= min_hamming_distance:
+            c += [el]
+    return c
+
+
+def find_codes_by_count(count=16):
+    distance = 20
+    while True:
+        c = find_codes_by_distance(distance)
+        if len(c) >= count:
+            break
+        distance -= 1
     return c
 
 
@@ -55,10 +80,16 @@ def print_enum(c):
     print('};')
 
 
+def print_result(c):
+    print('Get %d codes with min Hamming distance:' % len(c), hamming_min_distance(c))
+    int_codes = [bitstring_to_int(x) for x in c]
+    print_enum(int_codes)
+
+
 def solve(c_bytes=4, c_exp=8):
     """
     >>> solve()
-    Get codes with min Hamming distance: 10
+    Get 16 codes with min Hamming distance: 10
     enum {
         CODE_00 = 0x00000000,
         CODE_01 = 0x0F367840,
@@ -78,7 +109,7 @@ def solve(c_bytes=4, c_exp=8):
         CODE_15 = 0x78ADE73A,
     };
     >>> solve(8, 4)
-    Get codes with min Hamming distance: 11
+    Get 16 codes with min Hamming distance: 11
     enum {
         CODE_00 = 0x00000000,
         CODE_01 = 0x148172C1,
@@ -99,14 +130,21 @@ def solve(c_bytes=4, c_exp=8):
     };
     """
     c = codes(c_bytes=c_bytes, c_exp=c_exp)
-    print('Get codes with min Hamming distance:', hamming_min_distance(c))
-    int_codes = [bitstring_to_int(x) for x in c]
-    print_enum(int_codes)
+    print_result(c)
+
+
+def alternative_solve():
+    c = find_codes_by_count(16)
+    print_result(c)
+    c = find_codes_by_count(8)
+    print_result(c)
 
 
 if __name__ == '__main__':
     if len(sys.argv) > 1 and sys.argv[1] == 'test':
         fail, _ = doctest.testmod()
-        exit(fail)
-    else:
-        solve()
+        if fail:
+            exit(fail)
+
+    solve(8, 4)
+    alternative_solve()
